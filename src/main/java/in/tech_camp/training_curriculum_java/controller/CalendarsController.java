@@ -67,9 +67,14 @@ public class CalendarsController {
           }
       }
 
+      // 曜日に対応する番号を取得  Issue6
+      // 数値が7以上の場合を考慮
+      int wdayNum = (todaysDate.getDayOfWeek().getValue() + x) % 7;
+
       day_map.put("month", currentDate.getMonthValue());
       day_map.put("date", currentDate.getDayOfMonth());
       day_map.put("plans", todayPlans);
+      day_map.put("wday", wdays[wdayNum]);
 
       weekDays.add(day_map);
     }
