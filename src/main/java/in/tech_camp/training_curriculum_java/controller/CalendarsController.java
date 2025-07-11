@@ -30,7 +30,8 @@ public class CalendarsController {
   @GetMapping("/")
   public String index(Model model) {
     model.addAttribute("planForm", new PlanForm());
-    List<Map<String, Object>> weekDays = get_week();
+    // List<Map<String, Object>> weekDays = get_week();
+    List<Map<String, Object>> weekDays = getWeek();  //Issue2
     model.addAttribute("weekDays", weekDays);
     return "calendars/index";
   }
@@ -48,7 +49,8 @@ public class CalendarsController {
     return "redirect:/";  //Issue4
   }
 
-  private List<Map<String, Object>> get_week() {
+  // private List<Map<String, Object>> get_week() {
+  private List<Map<String, Object>> getWeek() {  //Issue2
     List<Map<String, Object>> weekDays = new ArrayList<>();
 
     LocalDate todaysDate = LocalDate.now();
@@ -57,7 +59,9 @@ public class CalendarsController {
     String[] wdays = {"(日)", "(月)", "(火)", "(水)", "(木)", "(金)", "(土)"};
 
     for (int x = 0; x < 7; x++) {
-      Map<String, Object> day_map = new HashMap<String, Object>();
+      // Map<String, Object> day_map = new HashMap<String, Object>();
+      // Map<String, Object> day_map = new HashMap<>();  //Issue1
+      Map<String, Object> dayMap = new HashMap<>();  //Issue1,2
       LocalDate currentDate = todaysDate.plusDays(x);
 
       List<String> todayPlans = new ArrayList<>();
@@ -71,12 +75,17 @@ public class CalendarsController {
       // 数値が7以上の場合を考慮
       int wdayNum = (todaysDate.getDayOfWeek().getValue() + x) % 7;
 
-      day_map.put("month", currentDate.getMonthValue());
-      day_map.put("date", currentDate.getDayOfMonth());
-      day_map.put("plans", todayPlans);
-      day_map.put("wday", wdays[wdayNum]);
+      // day_map.put("month", currentDate.getMonthValue());
+      // day_map.put("date", currentDate.getDayOfMonth());
+      // day_map.put("plans", todayPlans);
 
-      weekDays.add(day_map);
+      // weekDays.add(day_map);
+      dayMap.put("month", currentDate.getMonthValue());  //Issue2
+      dayMap.put("date", currentDate.getDayOfMonth());  //Issue2
+      dayMap.put("plans", todayPlans);  //Issue2
+      dayMap.put("wday", wdays[wdayNum]);  //Issue6
+
+      weekDays.add(dayMap);  //Issu2
     }
 
     return weekDays;

@@ -8,31 +8,31 @@
 </head>
 
 <body>
-  <div>
-    <form th:action="@{/calendars}" th:object="${planForm}" method="post" class="form">
-      <label for="date" class="label">日付を選択</label>
-      <input type="date" id="date" th:field="*{date}" class="date-select"/>
-      
-      <label for="plan" class="label">予定を入力</label>
-      <input type="text" id="plan" th:field="*{plan}" class="text-input"/>
-      
-      <button type="submit">保存</button>
-    </form>
-  </div>
-  <div>
-    <div class="calendar">
-      <div th:each="day : ${weekDays}">
-        <div class="item">
-          <div class="date">
-            <!-- <span th:text="'/'"></span> -->
-            <span th:text="${day.month} + '/' + ${day.date} + ${day.wday}"></span>  <!--Issue5,6-->
-          </div>
-          <ul class="content">
-            <li th:each="plan : ${day.plans}" class="plan-list">・<span th:text="${plan}"></span></li>
-          </ul>
+  <!-- <div>  Issue3 -->
+  <form th:action="@{/calendars}" th:object="${planForm}" method="post" class="form">
+    <label for="date" class="label">日付を選択</label>
+    <input type="date" id="date" th:field="*{date}" class="date-select"/>
+    
+    <label for="plan" class="label">予定を入力</label>
+    <input type="text" id="plan" th:field="*{plan}" class="text-input"/>
+    
+    <button type="submit">保存</button>
+  </form>
+  <!-- <div>  Issue3 -->
+  <!-- <div>  Issue3 -->
+  <div class="calendar">
+    <div th:each="day : ${weekDays}">
+      <div class="item">
+        <div class="date">
+          <!-- <span th:text="'/'"></span> -->
+          <span th:text="${day.month} + '/' + ${day.date} + ${day.wday}"></span>  <!--Issue5,6-->
         </div>
+        <ul class="content">
+          <li th:each="plan : ${day.plans}" class="plan-list">・<span th:text="${plan}"></span></li>
+        </ul>
       </div>
     </div>
   </div>
+  <!-- <div>  Issue3 -->
 </body>
 </html>
